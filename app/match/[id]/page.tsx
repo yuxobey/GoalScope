@@ -2,8 +2,8 @@
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { ChevronLeft, Star, Activity, BarChart3, Users, History } from "lucide-react";
-import { getFullMatchData } from "@/lib/api";
-import MomentumChart from "@/components/MomentumChart";
+import { getFullMatchData } from "../../lib/api";
+import MomentumChart from "../../components/MomentumChart";
 
 export default function MatchDetailPage({ params }: { params: { id: string } }) {
   const [activeTab, setActiveTab] = useState("ozet");
