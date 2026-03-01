@@ -5,7 +5,7 @@ import { ChevronLeft, Star } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, ReferenceLine, Tooltip } from 'recharts';
 
 // --- API FONKSİYONU BURADA ---
-const REPL_URL = "https://goalscope-scraper.yuxobey.repl.co"; // BURAYI KENDİ LİNKİNLE DEĞİŞTİR
+const REPL_URL = "https://4f7fa6fe-9818-43af-b9e8-154f977aa648-00-jtvgtxw7r722.pike.replit.dev:5000/"; // BURAYI KENDİ LİNKİNLE DEĞİŞTİR
 
 async function getFullData(id: string) {
   try {
