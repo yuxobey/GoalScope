@@ -31,6 +31,46 @@ function MomentumChart({ data }: { data: any[] }) {
     </div>
   );
 }
+function ShotMap({ shots }: { shots: any[] }) {
+  if (!shots || shots.length === 0) return null;
+
+  return (
+    <div className="bg-[#151a23] p-4 rounded-xl border border-white/5">
+      <h3 className="text-[10px] font-bold text-slate-400 uppercase mb-4 tracking-widest">Şut Haritası</h3>
+      <div className="relative aspect-[3/2] bg-[#0b0e14] rounded-lg border border-white/10 overflow-hidden">
+        {/* Saha Çizgileri - Basit SVG */}
+        <svg viewBox="0 0 100 64" className="absolute inset-0 w-full h-full opacity-20 stroke-white fill-none">
+          <rect x="0" y="0" width="100" height="64" />
+          <line x1="50" y1="0" x2="50" y2="64" />
+          <circle cx="50" cy="32" r="8" />
+          <rect x="0" y="16" width="16" height="32" />
+          <rect x="84" y="16" width="16" height="32" />
+        </svg>
+
+        {/* Şut Noktaları */}
+        {shots.map((shot, i) => (
+          <div 
+            key={i}
+            className={`absolute w-2 h-2 rounded-full border border-black transform -translate-x-1/2 -translate-y-1/2 shadow-lg transition-transform hover:scale-150`}
+            style={{ 
+              left: `${shot.playerCoordinates.x}%`, 
+              top: `${shot.playerCoordinates.y}%`,
+              backgroundColor: shot.isHome ? '#374df5' : '#e53935', // Ev: Mavi, Dep: Kırmızı
+              opacity: shot.shotType === 'goal' ? 1 : 0.6,
+              boxShadow: shot.shotType === 'goal' ? '0 0 10px #fff' : 'none'
+            }}
+            title={shot.shotType}
+          />
+        ))}
+      </div>
+      <div className="flex justify-between mt-3 text-[8px] font-bold text-slate-500">
+        <div className="flex items-center gap-1"><div className="w-2 h-2 bg-[#374df5] rounded-full"></div> EV</div>
+        <div className="flex items-center gap-1"><div className="w-2 h-2 bg-[#e53935] rounded-full"></div> DEP</div>
+        <div className="italic">* Parlak noktalar goldür</div>
+      </div>
+    </div>
+  );
+}
 
 // --- ANA SAYFA ---
 export default function MatchDetailPage({ params }: { params: { id: string } }) {
@@ -64,6 +104,7 @@ export default function MatchDetailPage({ params }: { params: { id: string } }) 
 
       <div className="space-y-4">
         <MomentumChart data={data.momentum} />
+        <ShotMap shots={data.shots} />
         <div className="bg-[#151a23] p-4 rounded-xl border border-white/5">
            <h3 className="text-[10px] font-bold text-slate-400 uppercase mb-2">Maç İstatistiği</h3>
            <div className="text-xs">Toplam Şut: {data.shots.length}</div>
